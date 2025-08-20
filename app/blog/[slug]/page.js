@@ -34,7 +34,7 @@ export default async function PostPage({ params }) {
     datePublished: post.date,
     dateModified: post.date,
     description: post.excerpt,
-    author: [{ '@type': 'Person', name: 'Your Name' }],
+    author: [{ '@type': 'Person', name: 'DVDphobia' }],
   };
 
   return (

@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
-              name: 'Your Name',
+              name: 'DVDphobia',
               url: process.env.SITE_URL || 'http://localhost:3000',
             }),
           }}
@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
         <main className="container">{children}</main>
         <footer>
           <div className="container" style={{paddingTop:16,paddingBottom:16}}>
-            <p className="muted">© {new Date().getFullYear()} Your Name</p>
+            <p className="muted">© {new Date().getFullYear()} DVDphobia</p>
           </div>
         </footer>
       </body>

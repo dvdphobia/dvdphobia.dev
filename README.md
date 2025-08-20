@@ -35,6 +35,6 @@ Post content in markdown...
 
 ## Customize
 
-- Update site name, your name, and links in `app/layout.js` and `app/page.js`.
+- Update site name, DVDphobia, and links in `app/layout.js` and `app/page.js`.
 - Adjust styling in `app/globals.css`.
 - Add projects to `app/portfolio/page.js`.
