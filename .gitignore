@@ -1,0 +1,26 @@
+node_modules
+.next
+.turbo
+out
+coverage
+.cache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel/Deploy
+.vercel
+
+# Generated SEO files
+public/sitemap*.xml
+public/robots.txt
