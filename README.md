@@ -33,6 +33,33 @@ excerpt: Short description.
 Post content in markdown...
 ```
 
+### Option: Pull posts from another GitHub repo
+
+You can source posts from a separate repository instead of local files. Set these environment variables:
+
+- `POSTS_GITHUB_REPO` — required to enable remote posts. Format: `owner/repo` (e.g., `DVDphobia/my-posts`).
+- `POSTS_GITHUB_DIR` — directory path in that repo containing markdown files. Default: `posts`.
+- `POSTS_GITHUB_REF` — branch or tag to read from. Default: `main`.
+- `POSTS_GITHUB_TOKEN` — optional token to access private repos or increase rate limits.
+- `POSTS_REMOTE_ONLY` — set to `true` to disable local fallback and use only the remote repo.
+
+Behavior:
+
+- If `POSTS_GITHUB_REPO` is set, the app fetches `.md` files from that repo/dir at runtime/build.
+- If remote fetch fails for any reason, it falls back to local `posts/*.md`.
+- Minimal in-memory caching avoids repeated API calls; TTL is ~5 minutes in dev and ~1 hour in prod.
+
+In a local dev shell:
+
+```bash
+export POSTS_GITHUB_REPO="owner/repo"
+export POSTS_GITHUB_DIR="posts"         # optional
+export POSTS_GITHUB_REF="main"          # optional
+export POSTS_GITHUB_TOKEN="ghp_xxx"     # optional (needed for private repos)
+export POSTS_REMOTE_ONLY="true"         # optional; force remote-only
+npm run dev
+```
+
 ## Customize
 
 - Update site name, DVDphobia, and links in `app/layout.js` and `app/page.js`.
