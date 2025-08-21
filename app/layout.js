@@ -79,7 +79,7 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
         <Script id="trustlogo-init" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `TrustLogo("https://www.dvdphobia.dev/sectigo_trust_seal_sm_82x32.png", "CL1", "none");`
         }} />
-        <a href="https://ssl.comodo.com/free-ssl-certificate.php" id="comodoTL">Free SSL</a>
+        <a href="https://ssl.comodo.com/free-ssl-certificate.php" id="comodoTL"></a>
       </body>
     </html>
   );
