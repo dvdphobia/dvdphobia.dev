@@ -4,6 +4,9 @@ export const metadata = {
   alternates: { canonical: '/about' },
 };
 
+import dynamic from 'next/dynamic';
+const EmailLink = dynamic(() => import('../../components/EmailLink'), { ssr: false });
+
 export default function AboutPage() {
   return (
     <section>
@@ -14,7 +17,7 @@ export default function AboutPage() {
         place for my notes and work.
       </p>
       <p>
-        Contact: <a href="mailto:you@example.com">you@example.com</a>
+        Contact: <EmailLink user="me" domain="dvdphobia.dev" label="me@dvdphobia.dev" />
       </p>
     </section>
   );

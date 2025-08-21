@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+  {/* If hosted on Cloudflare, consider disabling 'Email Address Obfuscation' to avoid /cdn-cgi/l/email-protection URLs */}
         {/* TrustLogo loader script (in head) */}
         <Script id="trustlogo-loader" strategy="beforeInteractive" dangerouslySetInnerHTML={{
           __html: `//<![CDATA[
@@ -34,6 +35,10 @@ var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-p
 document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
 //]]>`
         }} />
+        {/* Google Search Console verification (set GOOGLE_SITE_VERIFICATION env var) */}
+        {process.env.GOOGLE_SITE_VERIFICATION && (
+          <meta name="google-site-verification" content={process.env.GOOGLE_SITE_VERIFICATION} />
+        )}
       </head>
       <body>
         <script
