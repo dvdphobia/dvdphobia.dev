@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
+import dynamic from 'next/dynamic';
 import { getAllPosts, getPostBySlug } from '../../../lib/posts';
+
+const AdSlot300x250 = dynamic(() => import('../../../components/AdSlot300x250'), { ssr: false });
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -81,12 +84,9 @@ export default async function PostPage({ params }) {
           </div>
           <div className="card ad">
             <div className="muted" style={{fontSize:12, textTransform:'uppercase', letterSpacing:1}}>Advertisement</div>
-            <div style={{width:300, height:250, marginTop:8}}>
-              <Script id="ad-atoptions" strategy="afterInteractive" dangerouslySetInnerHTML={{
-                __html: `atOptions = { key: 'a03385a7d3e5a8dfccc9c6a372b6f8db', format: 'iframe', height: 250, width: 300, params: {} };`
-              }} />
-              <Script id="ad-invoke" strategy="afterInteractive" src="https://www.highperformanceformat.com/a03385a7d3e5a8dfccc9c6a372b6f8db/invoke.js" />
-            </div>
+                <div style={{marginTop:8}}>
+                  <AdSlot300x250 />
+                </div>
           </div>
         </div>
       </aside>
