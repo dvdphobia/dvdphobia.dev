@@ -38,13 +38,54 @@ export default async function PostPage({ params }) {
   };
 
   return (
-    <article>
+    <div className="post-layout">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <h1>{post.title}</h1>
-      <div className="muted" style={{marginBottom:16}}>
-        <span>{post.date}</span> · <span>{post.readingTime?.text}</span>
-      </div>
-      <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
-    </article>
+      {/* Left: Table of Contents */}
+      <aside className="post-toc">
+        <div className="sticky">
+          <div className="toc-title">On this page</div>
+          {post.headings && post.headings.length > 0 ? (
+            <ul>
+              {post.headings.map((h) => (
+                <li key={h.id} className={`d${h.depth}`}>
+                  <a href={`#${h.id}`}>{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="muted" style={{fontSize:14}}>No sections</p>
+          )}
+        </div>
+      </aside>
+
+      {/* Middle: Article */}
+      <article className="post-main">
+        <h1>{post.title}</h1>
+        <div className="muted" style={{marginBottom:16}}>
+          <span>{post.date}</span> · <span>{post.readingTime?.text}</span>
+        </div>
+        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+      </article>
+
+      {/* Right: Author/About + Ad */}
+      <aside className="post-aside">
+        <div className="sticky">
+          <div className="card" style={{marginBottom:16}}>
+            <div style={{fontWeight:700, marginBottom:8}}>About the author</div>
+            <div style={{fontSize:14}}>
+              <div style={{marginBottom:8}}>DVDphobia</div>
+              <p className="muted" style={{marginTop:0}}>Engineer writing about web dev, performance, and practical UX.</p>
+              <a href="/about" className="muted" style={{fontSize:14}}>More about me →</a>
+            </div>
+          </div>
+          <div className="card ad">
+            <div className="muted" style={{fontSize:12, textTransform:'uppercase', letterSpacing:1}}>Advertisement</div>
+            <div style={{height:120, display:'flex', alignItems:'center', justifyContent:'center', border:'1px dashed var(--border)', marginTop:8}}>
+              <span className="muted">Your ad here</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
   );
 }
