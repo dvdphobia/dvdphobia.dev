@@ -10,6 +10,9 @@ export async function generateStaticParams() {
   return posts.map(p => ({ slug: p.slug }));
 }
 
+// Revalidate post pages to reflect upstream changes without a full rebuild
+export const revalidate = 60; // seconds
+
 export async function generateMetadata({ params }) {
   const post = await getPostBySlug(params.slug);
   if (!post) return {};

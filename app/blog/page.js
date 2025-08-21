@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import { getAllPosts } from '../../lib/posts';
 
+// Revalidate periodically to pick up new posts while avoiding API rate limits
+const REVALIDATE_SECONDS = Number.parseInt(process.env.POSTS_CACHE_TTL_SECONDS || '60', 10) || 60;
+export const revalidate = REVALIDATE_SECONDS;
+
 export const metadata = {
   title: 'Blog',
   description: 'Articles, tutorials, and notes.',
