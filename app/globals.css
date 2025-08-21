@@ -73,5 +73,8 @@ hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 
 @media (max-width: 960px) {
   .post-layout { grid-template-columns: 1fr; }
-  .post-toc, .post-aside { display: none; }
+  .post-toc { display: none; }
+  .post-aside { display: block; margin-top: 8px; }
+  .post-aside .card.ad { display: flex; justify-content: center; }
+  .sticky { position: static; top: auto; }
 }
