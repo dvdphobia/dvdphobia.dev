@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { getAllPosts, getPostBySlug } from '../../../lib/posts';
 
 export async function generateStaticParams() {
@@ -80,8 +81,11 @@ export default async function PostPage({ params }) {
           </div>
           <div className="card ad">
             <div className="muted" style={{fontSize:12, textTransform:'uppercase', letterSpacing:1}}>Advertisement</div>
-            <div style={{height:120, display:'flex', alignItems:'center', justifyContent:'center', border:'1px dashed var(--border)', marginTop:8}}>
-              <span className="muted">Your ad here</span>
+            <div style={{width:300, height:250, marginTop:8}}>
+              <Script id="ad-atoptions" strategy="afterInteractive" dangerouslySetInnerHTML={{
+                __html: `atOptions = { key: 'a03385a7d3e5a8dfccc9c6a372b6f8db', format: 'iframe', height: 250, width: 300, params: {} };`
+              }} />
+              <Script id="ad-invoke" strategy="afterInteractive" src="https://www.highperformanceformat.com/a03385a7d3e5a8dfccc9c6a372b6f8db/invoke.js" />
             </div>
           </div>
         </div>
