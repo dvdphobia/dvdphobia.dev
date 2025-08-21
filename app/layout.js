@@ -21,10 +21,20 @@ export const metadata = {
 };
 
 import './globals.css';
+import Script from 'next/script';
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* TrustLogo loader script (in head) */}
+        <Script id="trustlogo-loader" strategy="beforeInteractive" dangerouslySetInnerHTML={{
+          __html: `//<![CDATA[
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>`
+        }} />
+      </head>
       <body>
         <script
           type="application/ld+json"
@@ -65,6 +75,11 @@ export default function RootLayout({ children }) {
             <p className="muted">© {new Date().getFullYear()} DVDphobia</p>
           </div>
         </footer>
+        {/* TrustLogo init (before body end) and anchor */}
+        <Script id="trustlogo-init" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `TrustLogo("https://www.dvdphobia.dev/sectigo_trust_seal_sm_82x32.png", "CL1", "none");`
+        }} />
+        <a href="https://ssl.comodo.com/free-ssl-certificate.php" id="comodoTL">Free SSL</a>
       </body>
     </html>
   );
