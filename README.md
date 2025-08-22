@@ -73,6 +73,20 @@ npm run sync:posts   # copies .md files into local posts/
 npm run dev          # now reads from local files (no rate limits)
 ```
 
+### Validate frontmatter
+
+Ensure all posts have their YAML frontmatter at the top:
+
+```bash
+npm run validate:posts
+```
+
+Auto-fix misplaced (trailing) frontmatter blocks (creates .bak backups):
+
+```bash
+npm run fix:frontmatter
+```
+
 ## Customize
 
 - Update site name, DVDphobia, and links in `app/layout.js` and `app/page.js`.

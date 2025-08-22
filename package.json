@@ -6,6 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next dev",
   "sync:posts": "node ./scripts/sync-posts.mjs",
+  "validate:posts": "node ./scripts/validate-posts.mjs",
+  "fix:frontmatter": "node ./scripts/fix-frontmatter.mjs",
   "build": "npm run sync:posts && next build && next-sitemap",
     "clean": "rm -rf .next out coverage public/sitemap*.xml public/robots.txt",
     "start": "next start"
