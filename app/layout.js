@@ -18,6 +18,9 @@ export const metadata = {
     description: 'Clean black & white portfolio and blog built with Next.js and React.',
   },
   alternates: { canonical: '/' },
+  other: {
+    monetag: '66792c6ca3c30204d166d9b416c857d7'
+  }
 };
 
 import './globals.css';

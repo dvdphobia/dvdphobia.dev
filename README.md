@@ -92,6 +92,11 @@ npm run fix:frontmatter
 - Update site name, DVDphobia, and links in `app/layout.js` and `app/page.js`.
 - Adjust styling in `app/globals.css`.
 - Add projects to `app/portfolio/page.js`.
+- To enable AdSense only on blog posts:
+	1. Add `NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX` to `.env.local`.
+	2. In `app/blog/[slug]/page.js`, uncomment the top/bottom ad placeholders and set real slot IDs.
+	3. Leave them commented to keep the site minimal.
+
 
 
 export POSTS_GITHUB_REPO="DVDphobia/blog_post"
