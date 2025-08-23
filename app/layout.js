@@ -42,6 +42,7 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
         {process.env.GOOGLE_SITE_VERIFICATION && (
           <meta name="google-site-verification" content={process.env.GOOGLE_SITE_VERIFICATION} />
         )}
+        
       </head>
       <body>
         <script
@@ -88,6 +89,8 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
           __html: `TrustLogo("https://www.dvdphobia.dev/sectigo_trust_seal_sm_82x32.png", "CL1", "none");`
         }} />
         <a href="https://ssl.comodo.com/free-ssl-certificate.php" id="comodoTL"></a>
+
+        
       </body>
     </html>
   );
