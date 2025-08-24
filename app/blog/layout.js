@@ -1,5 +1,6 @@
-import '../globals.css';
+
 import MonetagScripts from '../../components/MonetagScripts';
+
 
 export const metadata = {
   title: 'Blog | dvdphobia.dev',
@@ -11,7 +12,8 @@ export const metadata = {
 export default function BlogLayout({ children }) {
   return (
     <>
-      <MonetagScripts />
+  {/* Always load Monetag scripts unless globally disabled */}
+  {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && <MonetagScripts />}
       {children}
     </>
   );

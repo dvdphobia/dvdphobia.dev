@@ -34,6 +34,7 @@ export default function AdSlot300x250(props) {
   }
 
   useEffect(() => {
+  if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return; // skip loading scripts entirely
     // Helper to inject a script for one unit
     function loadUnit(el, { width: w, height: h, adKey: keyVal, format: fmt = 'iframe', scriptSrc: srcOverride }) {
       return new Promise((resolve) => {
@@ -70,6 +71,7 @@ export default function AdSlot300x250(props) {
   }, [units, width, height, adKey, format, scriptSrc]);
 
   if (units && units.length) {
+  if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return null;
     return (
       <div className={className} style={style} aria-label={label || 'Ad group'}>
         {units.map((u, i) => (
@@ -83,6 +85,8 @@ export default function AdSlot300x250(props) {
       </div>
     );
   }
+
+  if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return null;
 
   return (
     <div

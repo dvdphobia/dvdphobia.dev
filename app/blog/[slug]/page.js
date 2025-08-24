@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import { getAllPosts, getPostBySlug } from '../../../lib/posts';
+const TOC = dynamic(() => import('../../../components/TOC'), { ssr: false });
 
 const AdSlot300x250 = dynamic(() => import('../../../components/AdSlot300x250'), { ssr: false });
 const AdSenseSlot = dynamic(() => import('../../../components/AdSenseSlot'), { ssr: false });
@@ -50,7 +51,7 @@ export default async function PostPage({ params }) {
   return (
     <div className="post-layout">
       {/* AdSense base script (afterInteractive) only if client id is provided */}
-      {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+  {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
         <Script
           id="adsense-base"
           strategy="afterInteractive"
@@ -65,20 +66,15 @@ export default async function PostPage({ params }) {
         <div className="sticky">
           <div className="toc-title">On this page</div>
           {post.headings && post.headings.length > 0 ? (
-            <ul>
-              {post.headings.map((h) => (
-                <li key={h.id} className={`d${h.depth}`}>
-                  <a href={`#${h.id}`}>{h.text}</a>
-                </li>
-              ))}
-            </ul>
+            <TOC headings={post.headings} />
           ) : (
             <p className="muted" style={{fontSize:14}}>No sections</p>
           )}
-          {/* Left column slim ad (e.g. 160x600 Skyscraper). Adjust key/size if network provides a dedicated one. */}
-          <div style={{marginTop:24}}>
+          <div style={{marginTop:16}}>
             <div className="muted" style={{fontSize:10,letterSpacing:1,textTransform:'uppercase'}}>Ad</div>
-            <AdSlot300x250 width={160} height={600} adKey="bfaf7d0aca6d3fc192fdefe76513881d" />
+            {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
+              <AdSlot300x250 width={160} height={600} adKey="bfaf7d0aca6d3fc192fdefe76513881d" />
+            )}
           </div>
         </div>
       </aside>
@@ -110,7 +106,9 @@ export default async function PostPage({ params }) {
           <div className="card ad" style={{marginBottom:16}}>
             <div className="muted" style={{fontSize:12, textTransform:'uppercase', letterSpacing:1}}>Advertisement</div>
             <div style={{marginTop:8}}>
-              <AdSlot300x250 width={300} height={250} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" style={{ marginTop: 16 }} />
+              {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
+                <AdSlot300x250 width={300} height={250} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" style={{ marginTop: 16 }} />
+              )}
             </div>
           </div>
         </div>

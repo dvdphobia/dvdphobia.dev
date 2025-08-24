@@ -1,9 +1,9 @@
 "use client";
 import Script from 'next/script';
 
-// Loads the provided (obfuscated) ad initialization + external tag script.
-// Scoped usage recommended to avoid site‑wide performance/CSP impact.
+// Loads Monetag ad scripts (popup/inline). Controlled by NEXT_PUBLIC_DISABLE_ADS.
 export default function MonetagScripts() {
+  if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return null;
   return (
     <>
       <Script id="monetag-inline" strategy="afterInteractive" data-cfasync="false">{`
