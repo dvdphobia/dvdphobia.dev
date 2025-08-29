@@ -11,7 +11,9 @@ export default function TOC({ headings = [] }) {
   const [active, setActive] = useState(null);
   const [showSub, setShowSub] = useState(false); // collapse h3 by default
   const observerRef = useRef(null);
+  // No internal scroll container needed; TOC just flows with page
 
+  // Scroll-spy: track which heading is currently in view
   useEffect(() => {
     if (!headings.length) return;
     const opts = { root: null, rootMargin: '0px 0px -60% 0px', threshold: [0, 1] };
@@ -39,6 +41,8 @@ export default function TOC({ headings = [] }) {
     return () => { obs.disconnect(); };
   }, [headings]);
 
+  // (Auto-centering of active item removed since TOC no longer scrolls internally)
+
   const handleClick = (e, id) => {
     e.preventDefault();
     const el = document.getElementById(id);
@@ -54,7 +58,7 @@ export default function TOC({ headings = [] }) {
 
   return (
     <>
-      <ul className="toc-list">
+  <ul className="toc-list">
         {visible.map(h => {
           const truncated = h.text.length > 100 ? h.text.slice(0, 97) + '…' : h.text; // safety truncation pre-clamp for perf
           return (
