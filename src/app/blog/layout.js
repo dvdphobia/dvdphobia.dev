@@ -1,4 +1,4 @@
-import MonetagScripts from '../../components/MonetagScripts';
+import MonetagScripts from '@/components/ads/MonetagScripts';
 export const metadata = {
   title: 'Blog | dvdphobia.dev',
   description: 'Articles and posts',

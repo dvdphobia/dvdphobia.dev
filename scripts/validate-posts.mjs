@@ -3,7 +3,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const postsDir = path.join(process.cwd(), 'posts');
+// Updated path: posts are now under src/content/posts
+const postsDir = path.join(process.cwd(), 'src', 'content', 'posts');
 if (!fs.existsSync(postsDir)) {
   console.error('No posts directory found.');
   process.exit(1);

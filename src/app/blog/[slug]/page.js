@@ -2,11 +2,11 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-import { getAllPosts, getPostBySlug } from '../../../lib/posts';
-const TOC = dynamic(() => import('../../../components/TOC'), { ssr: false });
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
+const TOC = dynamic(() => import('@/components/blog/TOC'), { ssr: false });
 
-const AdSlot300x250 = dynamic(() => import('../../../components/AdSlot300x250'), { ssr: false });
-const AdSenseSlot = dynamic(() => import('../../../components/AdSenseSlot'), { ssr: false });
+const AdSlot300x250 = dynamic(() => import('@/components/ads/AdSlot300x250'), { ssr: false });
+const AdSenseSlot = dynamic(() => import('@/components/ads/AdSenseSlot'), { ssr: false });
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -64,7 +64,7 @@ export default async function PostPage({ params }) {
   return (
     <div className="post-layout">
       {/* AdSense base script (afterInteractive) only if client id is provided */}
-  {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+      {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
         <Script
           id="adsense-base"
           strategy="afterInteractive"
@@ -82,7 +82,7 @@ export default async function PostPage({ params }) {
         ) : (
           <p className="muted" style={{fontSize:14}}>No sections</p>
         )}
-          <div style={{marginTop:16}}>
+        <div style={{marginTop:16}}>
           <div className="muted" style={{fontSize:10,letterSpacing:1,textTransform:'uppercase'}}>Ad</div>
           {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
             <AdSlot300x250 width={160} height={600} adKey="bfaf7d0aca6d3fc192fdefe76513881d" />
@@ -125,7 +125,7 @@ export default async function PostPage({ params }) {
               )}
             </div>
           </div>
-  </div>
+        </div>
       </aside>
     </div>
   );

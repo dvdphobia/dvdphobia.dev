@@ -32,7 +32,8 @@ const TTL = Number.isFinite(TTL_ENV)
   ? Math.max(0, TTL_ENV) * 1000
   : 60 * 1000; // default 60s
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+// Updated content location under src/
+const postsDirectory = path.join(process.cwd(), 'src', 'content', 'posts');
 
 function normalizeDate(d) {
   try {

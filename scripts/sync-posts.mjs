@@ -31,8 +31,8 @@ async function* walk(dir) {
 
 async function main() {
   if (!REPO) {
-    console.error('[sync-posts] POSTS_GITHUB_REPO is required.');
-    process.exit(1);
+    console.log('[sync-posts] Skipping: POSTS_GITHUB_REPO not set.');
+    return; // treat as no-op in local builds
   }
   const tarUrl = `https://codeload.github.com/${REPO}/tar.gz/${encodeURIComponent(REF)}`;
   console.log(`[sync-posts] Downloading ${tarUrl} ...`);
@@ -61,7 +61,8 @@ async function main() {
     console.error(`[sync-posts] Directory not found in tarball: ${DIR}`);
     process.exit(1);
   }
-  const dest = path.join(process.cwd(), 'posts');
+  // Updated destination: src/content/posts
+  const dest = path.join(process.cwd(), 'src', 'content', 'posts');
   await ensureDir(dest);
   let count = 0;
   for await (const file of walk(contentRoot)) {

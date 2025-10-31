@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-  {/* If hosted on Cloudflare, consider disabling 'Email Address Obfuscation' to avoid /cdn-cgi/l/email-protection URLs */}
+        {/* If hosted on Cloudflare, consider disabling 'Email Address Obfuscation' to avoid /cdn-cgi/l/email-protection URLs */}
         {/* TrustLogo loader script (in head) */}
         <Script id="trustlogo-loader" strategy="beforeInteractive" dangerouslySetInnerHTML={{
           __html: `//<![CDATA[
@@ -80,7 +80,7 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
         </header>
         <main className="container">{children}</main>
         <footer>
-          <div className="container" style={{paddingTop:16,paddingBottom:16}}>
+          <div className="container" style={{paddingTop:16,paddingBottom:16, justifyContent:'center', display:'flex'}}>
             <p className="muted">© {new Date().getFullYear()} DVDphobia</p>
           </div>
         </footer>

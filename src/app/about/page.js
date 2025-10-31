@@ -5,7 +5,7 @@ export const metadata = {
 };
 
 import dynamic from 'next/dynamic';
-const EmailLink = dynamic(() => import('../../components/EmailLink'), { ssr: false });
+const EmailLink = dynamic(() => import('@/components/common/EmailLink'), { ssr: false });
 
 export default function AboutPage() {
   return (

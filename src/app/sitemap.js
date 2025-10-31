@@ -1,4 +1,4 @@
-import { getAllPosts } from '../lib/posts';
+import { getAllPosts } from '@/lib/posts';
 
 // Revalidate sitemap periodically so new remote posts appear without rebuild
 export const revalidate = 1800; // 30 minutes
