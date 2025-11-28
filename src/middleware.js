@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 // for other module
+//go home and rest
 export function middleware(req) {
   const token = req.cookies.get("auth_token")?.value;
   const isDashboard = req.nextUrl.pathname.startsWith("/dashboard");
