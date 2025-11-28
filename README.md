@@ -1,6 +1,6 @@
 # Portfolio & Blog (Next.js, JavaScript)
 
-Clean black & white theme using JetBrains Mono across the site. Blog uses markdown files with gray-matter, remark, and reading-time. SEO includes metadata, OpenGraph, JSON-LD, sitemap, robots.txt, and responsive design.
+Clean white & black theme using JetBrains Mono across the site. Blog uses markdown files with gray-matter, remark, and reading-time. SEO includes metadata, OpenGraph, JSON-LD, sitemap, robots.txt, and responsive design.
 
 ## Run locally
 
