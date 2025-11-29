@@ -11,7 +11,7 @@ if (!fs.existsSync(postsDir)) {
   process.exit(1);
 }
 
-const files = fs.readdirSync(postsDir).filter(f => f.endsWith('.md'));
+const files = fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'));
 let fixed = 0;
 for (const f of files) {
   const full = path.join(postsDir, f);
@@ -19,9 +19,9 @@ for (const f of files) {
   const lines = txt.split(/\r?\n/);
   if (lines[0].trim() === '---') continue; // already fine
   // Look for a block that starts with --- and ends with --- near the bottom.
-  const startIdx = lines.findIndex((l,i) => l.trim() === '---' && i > 0);
+  const startIdx = lines.findIndex((l, i) => l.trim() === '---' && i > 0);
   if (startIdx === -1) continue;
-  const endIdx = lines.findIndex((l,i) => i > startIdx && l.trim() === '---');
+  const endIdx = lines.findIndex((l, i) => i > startIdx && l.trim() === '---');
   if (endIdx === -1) continue;
   // Extract block
   const block = lines.slice(startIdx, endIdx + 1).join('\n');

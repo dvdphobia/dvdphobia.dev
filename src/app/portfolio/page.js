@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// Using native <img>; import Next Image when needed.
 
 export const metadata = {
   title: 'Portfolio',
@@ -34,9 +34,20 @@ export default function PortfolioPage() {
       <div className="grid grid-3">
         {projects.map((p) => (
           <a key={p.title} href={p.link} className="card" target="_blank" rel="noreferrer">
-            <div style={{aspectRatio:'4/3',position:'relative',marginBottom:12,background:'#f6f6f6'}}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.image} alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+            <div
+              style={{
+                aspectRatio: '4/3',
+                position: 'relative',
+                marginBottom: 12,
+                background: '#f6f6f6',
+              }}
+            >
+              {}
+              <img
+                src={p.image}
+                alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
             <h3>{p.title}</h3>
             <p className="muted">{p.summary}</p>

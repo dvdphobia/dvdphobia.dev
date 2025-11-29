@@ -2,7 +2,9 @@ export default function HomePage() {
   return (
     <section>
       <h1>Hi, I’m DVDphobia.</h1>
-      <p className="muted">Developer. Writer. Builder. This is my minimalist portfolio and blog. </p>
+      <p className="muted">
+        Developer. Writer. Builder. This is my minimalist portfolio and blog.{' '}
+      </p>
       <hr />
       <div className="grid grid-3">
         <a className="card" href="/blog">

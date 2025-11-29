@@ -10,7 +10,7 @@ if (!fs.existsSync(postsDir)) {
   process.exit(1);
 }
 
-const files = fs.readdirSync(postsDir).filter(f => f.endsWith('.md'));
+const files = fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'));
 let bad = 0;
 for (const f of files) {
   const full = path.join(postsDir, f);

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useRef } from 'react';
 
@@ -34,9 +34,12 @@ export default function AdSlot300x250(props) {
   }
 
   useEffect(() => {
-  if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return; // skip loading scripts entirely
+    if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return; // skip loading scripts entirely
     // Helper to inject a script for one unit
-    function loadUnit(el, { width: w, height: h, adKey: keyVal, format: fmt = 'iframe', scriptSrc: srcOverride }) {
+    function loadUnit(
+      el,
+      { width: w, height: h, adKey: keyVal, format: fmt = 'iframe', scriptSrc: srcOverride }
+    ) {
       return new Promise((resolve) => {
         if (!el) return resolve();
         el.innerHTML = '';
@@ -59,9 +62,9 @@ export default function AdSlot300x250(props) {
       const chain = async () => {
         if (units && units.length) {
           // Sequential inside this component
-            for (let i = 0; i < units.length; i++) {
-              await loadUnit(multiRefs.current[i], units[i]);
-            }
+          for (let i = 0; i < units.length; i++) {
+            await loadUnit(multiRefs.current[i], units[i]);
+          }
         } else {
           await loadUnit(singleRef.current, { width, height, adKey, format, scriptSrc });
         }
@@ -71,14 +74,19 @@ export default function AdSlot300x250(props) {
   }, [units, width, height, adKey, format, scriptSrc]);
 
   if (units && units.length) {
-  if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return null;
+    if (process.env.NEXT_PUBLIC_DISABLE_ADS === '1') return null;
     return (
       <div className={className} style={style} aria-label={label || 'Ad group'}>
         {units.map((u, i) => (
           <div
             key={i}
             ref={(el) => (multiRefs.current[i] = el)}
-            style={{ width: u.width, height: u.height, overflow: 'hidden', marginBottom: i < units.length - 1 ? gap : 0 }}
+            style={{
+              width: u.width,
+              height: u.height,
+              overflow: 'hidden',
+              marginBottom: i < units.length - 1 ? gap : 0,
+            }}
             aria-label={`Ad slot ${u.width}x${u.height}`}
           />
         ))}

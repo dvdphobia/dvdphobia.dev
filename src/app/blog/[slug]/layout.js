@@ -3,7 +3,7 @@
 // layout.js file is present in a segment. Keeping it minimal.
 
 export default function PostSlugLayout({ children }) {
-	return children;
+  return children;
 }
 
 // (Optional) You could add per‑post layout wrappers or providers here later.

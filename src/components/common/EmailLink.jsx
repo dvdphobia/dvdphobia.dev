@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useRef } from 'react';
 
@@ -14,6 +14,8 @@ export default function EmailLink({ user, domain, label }) {
   }, [user, domain]);
 
   return (
-    <a ref={anchorRef} rel="nofollow noopener noreferrer">{text}</a>
+    <a ref={anchorRef} rel="nofollow noopener noreferrer">
+      {text}
+    </a>
   );
 }

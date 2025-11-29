@@ -1,19 +1,19 @@
-# Portfolio & Blog (Next.js, JavaScript)
+# Portfolio & Blog (Next.js)
 
 Clean white & black theme using JetBrains Mono across the site. Blog uses markdown files with gray-matter, remark, and reading-time. SEO includes metadata, OpenGraph, JSON-LD, sitemap, robots.txt, and responsive design.
 
-## Run locally
+## Run Locally
 
-```bash
+```powershell
 npm install
 npm run dev
 ```
 
 Open http://localhost:3000
 
-## Build & export sitemap
+## Build & Sitemap
 
-```bash
+```powershell
 npm run build
 ```
 
@@ -53,39 +53,46 @@ Behavior:
 
 In a local dev shell (runtime fetch):
 
-```bash
-export POSTS_GITHUB_REPO="owner/repo"
-export POSTS_GITHUB_DIR="posts"         # optional
-export POSTS_GITHUB_REF="main"          # optional
-export POSTS_GITHUB_TOKEN="ghp_xxx"     # optional (needed for private repos)
-export POSTS_REMOTE_ONLY="true"         # optional; force remote-only
-export POSTS_CACHE_TTL_SECONDS="15"     # optional; fresher listing
+```powershell
+$env:POSTS_GITHUB_REPO = "owner/repo"
+$env:POSTS_GITHUB_DIR = "posts"         # optional
+$env:POSTS_GITHUB_REF = "main"          # optional
+$env:POSTS_GITHUB_TOKEN = "ghp_xxx"     # optional (needed for private repos)
+$env:POSTS_REMOTE_ONLY = "true"         # optional; force remote-only
+$env:POSTS_CACHE_TTL_SECONDS = "15"     # optional; fresher listing
 npm run dev
 ```
 
 Or, avoid runtime GitHub calls entirely with build-time sync:
 
-```bash
-export POSTS_GITHUB_REPO="owner/repo"
-export POSTS_GITHUB_DIR="posts"
-export POSTS_GITHUB_REF="main"
+```powershell
+$env:POSTS_GITHUB_REPO = "owner/repo"
+$env:POSTS_GITHUB_DIR = "posts"
+$env:POSTS_GITHUB_REF = "main"
 npm run sync:posts   # copies .md files into local posts/
 npm run dev          # now reads from local files (no rate limits)
 ```
 
-### Validate frontmatter
+### Validate Frontmatter
 
 Ensure all posts have their YAML frontmatter at the top:
 
-```bash
+```powershell
 npm run validate:posts
 ```
 
 Auto-fix misplaced (trailing) frontmatter blocks (creates .bak backups):
 
-```bash
+```powershell
 npm run fix:frontmatter
 ```
+
+## Conventions
+
+- **Imports:** Use absolute aliases per `jsconfig.json` (e.g., `@/components/...`).
+- **Naming:** Components in `PascalCase.jsx`; pages in `page.js` per Next App Router.
+- **Formatting:** Run `npm run format` before commits; ESLint warnings are okay for `console.warn/error`.
+- **Images:** Prefer Next `Image` component; `@next/next/no-img-element` is disabled where needed.
 
 ## Customize
 
@@ -93,15 +100,15 @@ npm run fix:frontmatter
 - Adjust styling in `app/globals.css`.
 - Add projects to `app/portfolio/page.js`.
 - To enable AdSense only on blog posts:
-	1. Add `NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX` to `.env.local`.
-	2. In `app/blog/[slug]/page.js`, uncomment the top/bottom ad placeholders and set real slot IDs.
-	3. Leave them commented to keep the site minimal.
+  1.  Add `NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX` to `.env.local`.
+  2.  In `app/blog/[slug]/page.js`, uncomment the top/bottom ad placeholders and set real slot IDs.
+  3.  Leave them commented to keep the site minimal.
 
-
-
-export POSTS_GITHUB_REPO="DVDphobia/blog_post"
-export POSTS_GITHUB_DIR="posts"
-export POSTS_GITHUB_REF="main" 
-export POSTS_REMOTE_ONLY="true" 
-export POSTS_CACHE_TTL_SECONDS="15"
+```powershell
+$env:POSTS_GITHUB_REPO = "DVDphobia/blog_post"
+$env:POSTS_GITHUB_DIR = "posts"
+$env:POSTS_GITHUB_REF = "main"
+$env:POSTS_REMOTE_ONLY = "true"
+$env:POSTS_CACHE_TTL_SECONDS = "15"
 npm run dev
+```

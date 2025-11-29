@@ -28,9 +28,7 @@ const cache = {
   ts: 0,
 };
 const TTL_ENV = parseInt(process.env.POSTS_CACHE_TTL_SECONDS || '', 10);
-const TTL = Number.isFinite(TTL_ENV)
-  ? Math.max(0, TTL_ENV) * 1000
-  : 60 * 1000; // default 60s
+const TTL = Number.isFinite(TTL_ENV) ? Math.max(0, TTL_ENV) * 1000 : 60 * 1000; // default 60s
 
 // Updated content location under src/
 const postsDirectory = path.join(process.cwd(), 'src', 'content', 'posts');
@@ -55,7 +53,7 @@ function parsePostFromContent(slug, raw) {
 async function fetchGitHubJSON(url, accept) {
   const headers = {
     'User-Agent': 'dvdphobia.dev-site',
-    'Accept': accept || 'application/vnd.github+json',
+    Accept: accept || 'application/vnd.github+json',
   };
   if (GH_TOKEN) headers.Authorization = `Bearer ${GH_TOKEN}`;
   const res = await fetch(url, { headers, cache: 'no-store' });
@@ -77,7 +75,10 @@ async function listGitHubMarkdownFiles() {
     const base = prefix.length ? `${prefix}/` : '';
     const tree = Array.isArray(data?.tree) ? data.tree : [];
     const files = tree
-      .filter((node) => node.type === 'blob' && node.path && node.path.startsWith(base) && /\.md$/.test(node.path))
+      .filter(
+        (node) =>
+          node.type === 'blob' && node.path && node.path.startsWith(base) && /\.md$/.test(node.path)
+      )
       .map((node) => node.path);
     if (files.length) return files;
   } catch (e) {
@@ -147,7 +148,13 @@ async function getRemoteAllPosts() {
       const slug = path.basename(filePath).replace(/\.md$/, '');
       const raw = await fetchGitHubFileRaw(filePath);
       const parsed = parsePostFromContent(slug, raw);
-      return { slug: parsed.slug, title: parsed.title, excerpt: parsed.excerpt, date: parsed.date, readingTime: parsed.readingTime };
+      return {
+        slug: parsed.slug,
+        title: parsed.title,
+        excerpt: parsed.excerpt,
+        date: parsed.date,
+        readingTime: parsed.readingTime,
+      };
     })
   );
   const sorted = posts.sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -171,14 +178,19 @@ async function getRemotePostBySlug(slug) {
     const raw = await fetchGitHubFileRaw(filePath);
     const parsed = parsePostFromContent(slug, raw);
     const headings = [];
-  const processor = remark()
+    const processor = remark()
       // collect headings and assign ids so the HTML serializer outputs anchor targets
       .use(() => (tree) => {
         visit(tree, 'heading', (node) => {
           const depth = node.depth || 0;
           const text = toString(node);
-          const id = (node?.data && (node.data.hProperties?.id || node.data.id)) ||
-            text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+          const id =
+            (node?.data && (node.data.hProperties?.id || node.data.id)) ||
+            text
+              .toLowerCase()
+              .trim()
+              .replace(/[^a-z0-9\s-]/g, '')
+              .replace(/\s+/g, '-');
           // ensure id on the node for remark-html
           node.data = node.data || {};
           node.data.hProperties = { ...(node.data.hProperties || {}), id };
@@ -186,9 +198,9 @@ async function getRemotePostBySlug(slug) {
             headings.push({ depth, text, id });
           }
         });
-  })
-  .use(remarkRehype)
-  .use(rehypeStringify);
+      })
+      .use(remarkRehype)
+      .use(rehypeStringify);
     const processedContent = await processor.process(parsed.content);
     const contentHtml = processedContent.toString();
     const post = {
@@ -207,7 +219,7 @@ async function getRemotePostBySlug(slug) {
     if (process.env.NODE_ENV !== 'production') {
       console.warn(`[posts] Failed to fetch remote post ${filePath}:`, e?.message || e);
     }
-  cache.errors.set(slug, Date.now());
+    cache.errors.set(slug, Date.now());
     return null;
   }
 }
@@ -218,8 +230,8 @@ export async function getAllPosts() {
     try {
       return await getRemoteAllPosts();
     } catch (e) {
-  if (REMOTE_ONLY) return [];
-  // fall through to local when not remote-only
+      if (REMOTE_ONLY) return [];
+      // fall through to local when not remote-only
     }
   }
   if (!fs.existsSync(postsDirectory)) return [];
@@ -233,7 +245,7 @@ export async function getAllPosts() {
       const excerpt = data.excerpt || content.split('\n').slice(0, 3).join(' ');
       const rt = readingTime(content);
       const date = normalizeDate(data.date);
-  return { slug, title: data.title || slug, excerpt, date, readingTime: rt };
+      return { slug, title: data.title || slug, excerpt, date, readingTime: rt };
     })
   );
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -242,9 +254,9 @@ export async function getAllPosts() {
 export async function getPostBySlug(slug) {
   if (USE_REMOTE) {
     const remote = await getRemotePostBySlug(slug);
-  if (remote) return remote;
-  if (REMOTE_ONLY) return null;
-  // else fall back to local when not remote-only
+    if (remote) return remote;
+    if (REMOTE_ONLY) return null;
+    // else fall back to local when not remote-only
   }
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   if (!fs.existsSync(fullPath)) return null;
@@ -257,8 +269,13 @@ export async function getPostBySlug(slug) {
       visit(tree, 'heading', (node) => {
         const depth = node.depth || 0;
         const text = toString(node);
-        const id = (node?.data && (node.data.hProperties?.id || node.data.id)) ||
-          text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+        const id =
+          (node?.data && (node.data.hProperties?.id || node.data.id)) ||
+          text
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-');
         // ensure id on the node for remark-html
         node.data = node.data || {};
         node.data.hProperties = { ...(node.data.hProperties || {}), id };
@@ -266,16 +283,16 @@ export async function getPostBySlug(slug) {
           headings.push({ depth, text, id });
         }
       });
-  })
-  .use(remarkRehype)
-  .use(rehypeStringify);
+    })
+    .use(remarkRehype)
+    .use(rehypeStringify);
   const processedContent = await processor.process(content);
   const contentHtml = processedContent.toString();
   const rt = readingTime(content);
   const date = normalizeDate(data.date);
   return {
     slug,
-  title: data.title || slug,
+    title: data.title || slug,
     excerpt: data.excerpt || content.split('\n').slice(0, 3).join(' '),
     date,
     readingTime: rt,

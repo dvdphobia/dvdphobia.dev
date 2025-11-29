@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -32,9 +32,11 @@ export default function MonetagOptIn({ position = 'sidebar' }) {
     return (
       <>
         <MonetagScripts />
-        <div className="monetag-status" style={{marginTop:12}}>
-          <span style={{fontSize:11, color:'var(--muted)'}}>Ads enabled</span>
-          <button onClick={disable} style={btnStyle}>Disable (page)</button>
+        <div className="monetag-status" style={{ marginTop: 12 }}>
+          <span style={{ fontSize: 11, color: 'var(--muted)' }}>Ads enabled</span>
+          <button onClick={disable} style={btnStyle}>
+            Disable (page)
+          </button>
         </div>
       </>
     );
@@ -43,12 +45,16 @@ export default function MonetagOptIn({ position = 'sidebar' }) {
   if (dismissed) return null; // user turned off this page
 
   return (
-    <div className={`monetag-optin monetag-optin-${position}`} style={{marginTop:12}}>
-      <div style={{fontSize:12, lineHeight:1.4, marginBottom:6}}>
+    <div className={`monetag-optin monetag-optin-${position}`} style={{ marginTop: 12 }}>
+      <div style={{ fontSize: 12, lineHeight: 1.4, marginBottom: 6 }}>
         Support this site by enabling an ad script (may open popups). You can turn it off anytime.
       </div>
-      <button onClick={enable} style={btnPrimary}>Enable Ads</button>
-      <button onClick={() => setDismissed(true)} style={btnGhost}>No thanks</button>
+      <button onClick={enable} style={btnPrimary}>
+        Enable Ads
+      </button>
+      <button onClick={() => setDismissed(true)} style={btnGhost}>
+        No thanks
+      </button>
     </div>
   );
 }
@@ -60,7 +66,7 @@ const baseBtn = {
   padding: '6px 10px',
   borderRadius: 4,
   border: '1px solid var(--border)',
-  background: 'transparent'
+  background: 'transparent',
 };
 
 const btnPrimary = {
@@ -68,15 +74,15 @@ const btnPrimary = {
   background: '#111',
   color: '#fff',
   borderColor: '#111',
-  marginRight: 8
+  marginRight: 8,
 };
 
 const btnGhost = {
   ...baseBtn,
-  background: 'transparent'
+  background: 'transparent',
 };
 
 const btnStyle = {
   ...baseBtn,
-  marginLeft: 8
+  marginLeft: 8,
 };

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useRef } from 'react';
 
@@ -17,7 +17,7 @@ export default function AdSenseSlot({ slot, format = 'auto', className = '', sty
       if (typeof window !== 'undefined') {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
-    } catch (e) {
+    } catch {
       // Fail silently; ad script may be blocked.
     }
   }, []);
