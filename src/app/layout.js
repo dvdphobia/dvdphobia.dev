@@ -31,6 +31,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* If hosted on Cloudflare, consider disabling 'Email Address Obfuscation' to avoid /cdn-cgi/l/email-protection URLs */}
+        {/* Hotjar */}
+        <script src="https://t.contentsquare.net/uxa/17d0ad56f69ae.js"></script>
         {/* TrustLogo loader script (in head) */}
         <Script id="trustlogo-loader" strategy="beforeInteractive" dangerouslySetInnerHTML={{
           __html: `//<![CDATA[
