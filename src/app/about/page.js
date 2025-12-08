@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'About',
-  description: 'About me and how to get in touch.',
+  description: 'Learn more about DVDphobia, a passionate programmer who loves C and system programming.',
   alternates: { canonical: '/about' },
 };
 
@@ -9,20 +9,48 @@ const EmailLink = dynamic(() => import('@/components/common/EmailLink'), { ssr: 
 
 export default function AboutPage() {
   return (
-    <section>
-      <h1>About</h1>
-      <p>
-        I’m DVDphobia. Not my real name, but that’s what I want people to call me.
-          
-        I don’t really like talking much, but here’s a little about me. My name is Phanha. When I was around 9, I was just playing games like any kid. One day I started thinking, “how the fuck do people even make games?” That made me curious, so I started searching around. I found out people use programming. At that time, that word felt like some kind of magic to me.
-          
-        The first language I saw was C, and I fell in love with it. It’s close to machine language, and that makes it powerful as hell. Because of that, I started loving system stuff too. I spent a lot of time experimenting, messing with things, breaking systems, fucking up code—just to see what I could do.
-          
-        Oh, and one more thing: I love C, probably because I can’t read assembly., 
-      </p>
-      <p>
-        Contact: <EmailLink user="me" domain="dvdphobia.dev" label="me@dvdphobia.dev" />
-      </p>
-    </section>
+    <>
+      {/* Hero Section */}
+      <section className="section">
+        <div className="container">
+          <div style={{maxWidth: 700, margin: '0 auto'}}>
+            <h1 style={{marginBottom: 24}}>About</h1>
+            
+            <div style={{lineHeight: 1.8, fontSize: '1.1rem'}}>
+              <p style={{marginBottom: 24}}>
+                I am DVDphobia. Not my real name, but that is what I want people to call me.
+              </p>
+              
+              <p style={{marginBottom: 24}}>
+                My real name is Phanha. When I was around 9, I was just playing games like any kid. 
+                One day I started thinking, "how do people even make games?" That made me curious, 
+                so I started searching around. I found out people use programming. At that time, 
+                that word felt like some kind of magic to me.
+              </p>
+              
+              <p style={{marginBottom: 24}}>
+                The first language I saw was C, and I fell in love with it. It is close to machine language, 
+                and that makes it powerful. Because of that, I started loving system stuff too. 
+                I spent a lot of time experimenting, messing with things, breaking systems, 
+                messing up code - just to see what I could do.
+              </p>
+              
+              <p style={{marginBottom: 32}}>
+                Oh, and one more thing: I love C, probably because I cannot read assembly.
+              </p>
+            </div>
+
+            <hr style={{margin: '32px 0'}} />
+
+            <div>
+              <h2 style={{marginBottom: 16}}>Contact</h2>
+              <p className="muted">
+                <EmailLink user="me" domain="dvdphobia.dev" label="me@dvdphobia.dev" />
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

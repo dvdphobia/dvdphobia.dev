@@ -1,21 +1,21 @@
 export const metadata = {
   metadataBase: new URL(process.env.SITE_URL || 'http://localhost:3000'),
   title: {
-    default: 'Portfolio & Blog',
-    template: '%s | Portfolio & Blog',
+    default: 'DVDphobia | Developer & Builder',
+    template: '%s | DVDphobia',
   },
-  description: 'Clean black & white portfolio and blog built with Next.js and React.',
+  description: 'Clean, modern portfolio and blog. Developer, Writer, Builder.',
   openGraph: {
-    title: 'Portfolio & Blog',
-    description: 'Clean black & white portfolio and blog built with Next.js and React.',
+    title: 'DVDphobia | Developer & Builder',
+    description: 'Clean, modern portfolio and blog. Developer, Writer, Builder.',
     url: '/',
-    siteName: 'Portfolio & Blog',
+    siteName: 'DVDphobia',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Portfolio & Blog',
-    description: 'Clean black & white portfolio and blog built with Next.js and React.',
+    title: 'DVDphobia | Developer & Builder',
+    description: 'Clean, modern portfolio and blog. Developer, Writer, Builder.',
   },
   alternates: { canonical: '/' },
   other: {
@@ -51,7 +51,7 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'Portfolio & Blog',
+              name: 'DVDphobia',
               url: process.env.SITE_URL || 'http://localhost:3000',
             }),
           }}
@@ -68,20 +68,22 @@ document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/tru
           }}
         />
         <header>
-          <div className="container" style={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingTop:16,paddingBottom:16}}>
-            <a href="/" style={{fontWeight:700}}>PB</a>
-            <nav>
-              <a href="/" aria-current="page">Home</a>
+          <div className="container" style={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingTop:20,paddingBottom:20}}>
+            <a href="/" style={{fontWeight:700,fontSize:'1.25rem',letterSpacing:'-0.02em'}}>
+              DVDphobia
+            </a>
+            <nav style={{display:'flex',alignItems:'center'}}>
+              <a href="/">Home</a>
               <a href="/blog">Blog</a>
               <a href="/portfolio">Portfolio</a>
               <a href="/about">About</a>
             </nav>
           </div>
         </header>
-        <main className="container">{children}</main>
+        <main>{children}</main>
         <footer>
-          <div className="container" style={{paddingTop:16,paddingBottom:16, justifyContent:'center', display:'flex'}}>
-            <p className="muted">© {new Date().getFullYear()} DVDphobia</p>
+          <div className="container" style={{paddingTop:32,paddingBottom:32,textAlign:'center'}}>
+            <p className="muted" style={{fontSize:14,margin:0}}>© {new Date().getFullYear()} DVDphobia</p>
           </div>
         </footer>
         {/* TrustLogo init (before body end) and anchor */}
