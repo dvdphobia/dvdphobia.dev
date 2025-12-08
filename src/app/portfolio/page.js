@@ -4,25 +4,17 @@ export const metadata = {
   alternates: { canonical: '/portfolio' },
 };
 
+// Set to true when you have real projects to show
+const SHOW_PROJECTS = false;
+
 const projects = [
-  {
-    title: 'Project Alpha',
-    summary: 'High-performance web app with real-time features.',
-    link: 'https://example.com',
-    image: 'https://picsum.photos/seed/alpha/800/600',
-  },
-  {
-    title: 'Project Beta',
-    summary: 'E-commerce storefront focused on speed and UX.',
-    link: 'https://example.com',
-    image: 'https://picsum.photos/seed/beta/800/600',
-  },
-  {
-    title: 'Project Gamma',
-    summary: 'Data visualization dashboard for insights at a glance.',
-    link: 'https://example.com',
-    image: 'https://picsum.photos/seed/gamma/800/600',
-  },
+  // Add your real projects here when ready:
+  // {
+  //   title: 'Project Name',
+  //   summary: 'Brief description of the project.',
+  //   link: 'https://your-project.com',
+  //   image: '/images/project.png', // Use local images
+  // },
 ];
 
 export default function PortfolioPage() {
@@ -35,35 +27,43 @@ export default function PortfolioPage() {
             A curated collection of projects I have worked on.
           </p>
           
-          <div className="grid grid-3">
-            {projects.map((p) => (
-              <a 
-                key={p.title} 
-                href={p.link} 
-                className="card" 
-                target="_blank" 
-                rel="noreferrer"
-                style={{padding: 0, overflow: 'hidden'}}
-              >
-                <div style={{
-                  aspectRatio: '4/3',
-                  position: 'relative',
-                  background: 'var(--surface)',
-                }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
-                    src={p.image} 
-                    alt="" 
-                    style={{width: '100%', height: '100%', objectFit: 'cover'}} 
-                  />
-                </div>
-                <div style={{padding: 20}}>
-                  <h3 style={{margin: 0, marginBottom: 8}}>{p.title}</h3>
-                  <p className="muted" style={{margin: 0, fontSize: 14}}>{p.summary}</p>
-                </div>
-              </a>
-            ))}
-          </div>
+          {!SHOW_PROJECTS || projects.length === 0 ? (
+            <div className="portfolio-coming-soon">
+              <div style={{fontSize: 48, marginBottom: 16}}>🚧</div>
+              <h2>Coming Soon</h2>
+              <p>I&apos;m currently working on documenting my projects. Check back soon!</p>
+            </div>
+          ) : (
+            <div className="grid grid-3">
+              {projects.map((p) => (
+                <a 
+                  key={p.title} 
+                  href={p.link} 
+                  className="card" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  style={{padding: 0, overflow: 'hidden'}}
+                >
+                  <div style={{
+                    aspectRatio: '4/3',
+                    position: 'relative',
+                    background: 'var(--surface)',
+                  }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src={p.image} 
+                      alt="" 
+                      style={{width: '100%', height: '100%', objectFit: 'cover'}} 
+                    />
+                  </div>
+                  <div style={{padding: 20}}>
+                    <h3 style={{margin: 0, marginBottom: 8}}>{p.title}</h3>
+                    <p className="muted" style={{margin: 0, fontSize: 14}}>{p.summary}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

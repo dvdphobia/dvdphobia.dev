@@ -97,6 +97,42 @@ npm run fix:frontmatter
 	2. In `app/blog/[slug]/page.js`, uncomment the top/bottom ad placeholders and set real slot IDs.
 	3. Leave them commented to keep the site minimal.
 
+## Ads
+
+All ad components are in `src/components/ads/Ads.jsx`. Set `NEXT_PUBLIC_DISABLE_ADS=1` to disable all ads globally.
+
+### Components
+
+| Component | Description |
+|-----------|-------------|
+| `AdSense` | Google AdSense slot |
+| `AdSlot` | HighPerformanceFormat ad (300x250 default) |
+| `MonetagScripts` | Loads Monetag tag script |
+| `MonetagOptIn` | User opt-in gate for Monetag ads |
+
+### Usage
+
+```jsx
+import { AdSense, AdSlot, MonetagOptIn } from '@/components/ads/Ads';
+
+// Google AdSense (requires NEXT_PUBLIC_ADSENSE_CLIENT env var)
+<AdSense slot="1234567890" />
+
+// HighPerformanceFormat
+<AdSlot width={300} height={250} adKey="your-ad-key" />
+
+// Monetag with user opt-in
+<MonetagOptIn position="sidebar" />
+```
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_ADSENSE_CLIENT` | Google AdSense client ID (e.g., `ca-pub-XXX`) |
+| `NEXT_PUBLIC_DISABLE_ADS` | Set to `1` to disable all ads |
+| `NEXT_PUBLIC_MONETAG_AUTO` | Set to `1` to auto-load Monetag without opt-in |
+
 
 
 export POSTS_GITHUB_REPO="DVDphobia/blog_post"

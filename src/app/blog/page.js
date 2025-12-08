@@ -25,19 +25,19 @@ export default async function BlogPage() {
             {posts.length === 0 ? (
               <p className="muted">No posts yet. Check back soon!</p>
             ) : (
-              <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
+              <ul className="blog-list">
                 {posts.map(p => (
-                  <li key={p.slug} style={{marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid var(--border)'}}>
-                    <Link href={`/blog/${p.slug}`}>
-                      <h2 style={{fontSize: '1.25rem', marginBottom: 8}}>{p.title}</h2>
+                  <li key={p.slug} className="blog-list-item">
+                    <Link href={`/blog/${p.slug}`} className="blog-list-link">
+                      <h2 className="blog-list-title">{p.title}</h2>
+                      <div className="blog-list-meta muted">
+                        <span>{p.date}</span>
+                        {p.readingTime?.text && <span> · {p.readingTime.text}</span>}
+                      </div>
+                      {p.excerpt && (
+                        <p className="blog-list-excerpt muted">{p.excerpt}</p>
+                      )}
                     </Link>
-                    <div className="muted" style={{fontSize: 14, marginBottom: 8}}>
-                      <span>{p.date}</span>
-                      {p.readingTime?.text && <span> · {p.readingTime.text}</span>}
-                    </div>
-                    {p.excerpt && (
-                      <p className="muted" style={{margin: 0}}>{p.excerpt}</p>
-                    )}
                   </li>
                 ))}
               </ul>

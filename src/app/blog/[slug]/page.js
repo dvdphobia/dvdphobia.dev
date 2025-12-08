@@ -6,8 +6,8 @@ import { getAllPosts, getPostBySlug } from '@/lib/posts';
 const TOC = dynamic(() => import('@/components/blog/TOC'), { ssr: false });
 const AuthorBox = dynamic(() => import('@/components/blog/AuthorBox'), { ssr: false });
 
-const AdSlot300x250 = dynamic(() => import('@/components/ads/AdSlot300x250'), { ssr: false });
-const AdSenseSlot = dynamic(() => import('@/components/ads/AdSenseSlot'), { ssr: false });
+const AdSlot = dynamic(() => import('@/components/ads/Ads').then(mod => ({ default: mod.AdSlot })), { ssr: false });
+const AdSense = dynamic(() => import('@/components/ads/Ads').then(mod => ({ default: mod.AdSense })), { ssr: false });
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -75,7 +75,8 @@ export default async function PostPage({ params }) {
         />
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      {/* Left: Table of Contents */}
+      
+      {/* Left: Table of Contents (clean, no ads) */}
       <aside className="post-toc">
         <div className="toc-content">
           <div className="toc-title">On this page</div>
@@ -85,40 +86,29 @@ export default async function PostPage({ params }) {
             <p className="muted" style={{fontSize:14}}>No sections</p>
           )}
         </div>
-        <hr className="toc-divider" />
-        <div>
-          <div className="muted" style={{fontSize:10,letterSpacing:1,textTransform:'uppercase'}}>Ad</div>
-          {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
-            <AdSlot300x250 width={160} height={600} adKey="bfaf7d0aca6d3fc192fdefe76513881d" />
-          )}
-        </div>
       </aside>
-      
 
-      {/* Middle: Article */}
+      {/* Main Article */}
       <article className="post-main">
-        <h1>{post.title}</h1>
-        {/* Optional top ad (uncomment and set slot id) */}
-        {/* <div style={{margin:'16px 0'}}><AdSenseSlot slot="YOUR_TOP_SLOT_ID" /></div> */}
-        <div className="muted" style={{marginBottom:16}}>
-          <span>{post.date}</span> · <span>{post.readingTime?.text}</span>
+        <div className="post-header">
+          <h1>{post.title}</h1>
+          <div className="post-meta muted">
+            <span>{post.date}</span> · <span>{post.readingTime?.text}</span>
+          </div>
         </div>
+        
         <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+        
+        {/* Single ad placement - after content, before author */}
+        {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
+          <div className="post-ad">
+            <AdSlot width={728} height={90} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" />
+          </div>
+        )}
         
         {/* Author Box */}
         <AuthorBox />
-        
-        {/* Optional bottom ad (uncomment and set slot id) */}
-        {/* <div style={{margin:'32px 0 0'}}><AdSenseSlot slot="YOUR_BOTTOM_SLOT_ID" /></div> */}
       </article>
-
-      {/* Right: Ad */}
-      <aside className="post-aside">
-        <div className="muted" style={{fontSize:10, textTransform:'uppercase', letterSpacing:1, marginBottom:8}}>Ad</div>
-        {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
-          <AdSlot300x250 width={300} height={250} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" />
-        )}
-      </aside>
     </div>
   );
 }
