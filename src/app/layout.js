@@ -2,6 +2,7 @@ import './globals.css';
 import Script from 'next/script';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
+import { AdSlot } from '@/components/ads/Ads';
 
 const SITE_URL = process.env.SITE_URL || 'http://localhost:3000';
 
@@ -22,7 +23,6 @@ export const metadata = {
     description: 'Clean, modern portfolio and blog. Developer, Writer, Builder.',
   },
   alternates: { canonical: '/' },
-  other: { monetag: '66792c6ca3c30204d166d9b416c857d7' },
 };
 
 export default function RootLayout({ children }) {
@@ -72,6 +72,16 @@ export default function RootLayout({ children }) {
         <main>{children}</main>
 
         <Footer />
+
+        {/* Adsterra Banner 468x60 */}
+        <div style={{ textAlign: 'center', margin: '20px 0' }}>
+          <AdSlot
+            width={468}
+            height={60}
+            adKey="e891c276e08147961d81937e1f30e53d"
+            label="Adsterra Banner"
+          />
+        </div>
 
         {/* TrustLogo init */}
         <Script id="trustlogo-init" strategy="afterInteractive">{`
