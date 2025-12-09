@@ -49,7 +49,9 @@ function parsePostFromContent(slug, raw) {
   const rt = readingTime(content);
   const date = normalizeDate(data.date);
   const title = data.title || slug;
-  return { slug, title, excerpt, date, readingTime: rt, data, content };
+  const image = data.image || null; // Featured image from frontmatter
+  const tags = Array.isArray(data.tags) ? data.tags : [];
+  return { slug, title, excerpt, date, readingTime: rt, image, tags, data, content };
 }
 
 async function fetchGitHubJSON(url, accept) {
@@ -197,6 +199,8 @@ async function getRemotePostBySlug(slug) {
       excerpt: parsed.excerpt,
       date: parsed.date,
       readingTime: parsed.readingTime,
+      image: parsed.image,
+      tags: parsed.tags,
       contentHtml,
       headings,
     };
@@ -279,6 +283,8 @@ export async function getPostBySlug(slug) {
     excerpt: data.excerpt || content.split('\n').slice(0, 3).join(' '),
     date,
     readingTime: rt,
+    image: data.image || null,
+    tags: Array.isArray(data.tags) ? data.tags : [],
     contentHtml,
     headings,
   };

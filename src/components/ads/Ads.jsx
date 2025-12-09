@@ -55,14 +55,45 @@ export function AdSlot({
     const el = ref.current;
     el.innerHTML = '';
 
-    const src = scriptSrc || `//www.highperformanceformat.com/${adKey}/invoke.js`;
-    window.atOptions = { key: adKey, format, height, width, params: {} };
+    const iframe = document.createElement('iframe');
+    iframe.width = width;
+    iframe.height = height;
+    iframe.style.border = 'none';
+    iframe.style.overflow = 'hidden';
+    iframe.style.display = 'block';
+    iframe.style.margin = '0 auto';
+    iframe.scrolling = 'no';
+    el.appendChild(iframe);
 
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = src;
-    el.appendChild(script);
+    const doc = iframe.contentWindow.document;
+    let src = scriptSrc || `//www.highperformanceformat.com/${adKey}/invoke.js`;
+    if (src.startsWith('//')) src = 'https:' + src;
+    
+    const content = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <base target="_top" />
+        <style>body{margin:0;padding:0;overflow:hidden;}</style>
+      </head>
+      <body>
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '${adKey}',
+            'format' : '${format}',
+            'height' : ${height},
+            'width' : ${width},
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="${src}"></script>
+      </body>
+      </html>
+    `;
+
+    doc.open();
+    doc.write(content);
+    doc.close();
   }, [width, height, adKey, format, scriptSrc]);
 
   if (DISABLE_ADS) return null;
@@ -71,7 +102,7 @@ export function AdSlot({
     <div
       ref={ref}
       className={className}
-      style={{ width, height, overflow: 'hidden', ...style }}
+      style={{ width, height, overflow: 'hidden', margin: '0 auto', ...style }}
       aria-label={label || `Ad slot ${width}x${height}`}
     />
   );
