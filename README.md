@@ -28,10 +28,29 @@ Sitemap and robots are created by `next-sitemap` at build time.
 title: My Post Title
 date: 2025-08-20
 excerpt: Short description.
+image: https://your-image-url.com/image.jpg  # Optional: Featured image for hero section
+tags: [javascript, tutorial, web-development]  # Optional: Post tags
 ---
 
 Post content in markdown...
 ```
+
+### Frontmatter Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `title` | Yes | Post title displayed in hero section |
+| `date` | Yes | Publication date (YYYY-MM-DD) |
+| `excerpt` | Yes | Short description for SEO and listings |
+| `image` | No | Featured image URL (displayed in hero section) |
+| `tags` | No | Array of tags for categorization |
+
+### Hero Section
+
+Each blog post displays a hero section after the navbar:
+- **With image**: Title on the left, featured image on the right (2-column layout)
+- **Without image**: Centered title with metadata
+- Tags are displayed below the date and reading time
 
 ### Option: Pull posts from another GitHub repo
 

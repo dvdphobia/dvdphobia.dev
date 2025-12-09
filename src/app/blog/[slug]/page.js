@@ -63,7 +63,7 @@ export default async function PostPage({ params }) {
   };
 
   return (
-    <div className="post-layout">
+    <>
       {/* AdSense base script (afterInteractive) only if client id is provided */}
       {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
         <Script
@@ -76,39 +76,57 @@ export default async function PostPage({ params }) {
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       
-      {/* Left: Table of Contents (clean, no ads) */}
-      <aside className="post-toc">
-        <div className="toc-content">
-          <div className="toc-title">On this page</div>
-          {post.headings && post.headings.length > 0 ? (
-            <TOC headings={post.headings} />
-          ) : (
-            <p className="muted" style={{fontSize:14}}>No sections</p>
-          )}
-        </div>
-      </aside>
-
-      {/* Main Article */}
-      <article className="post-main">
-        <div className="post-header">
+      {/* Hero Section - Full width, outside the layout grid */}
+      <div className={`post-hero-wrapper ${post.image ? 'post-hero-with-image' : 'post-hero-centered'}`}>
+        <div className="post-hero-content">
           <h1>{post.title}</h1>
           <div className="post-meta muted">
             <span>{post.date}</span> · <span>{post.readingTime?.text}</span>
           </div>
+          {post.tags && post.tags.length > 0 && (
+            <div className="post-tags">
+              {post.tags.map((tag) => (
+                <span key={tag} className="tag">{tag}</span>
+              ))}
+            </div>
+          )}
         </div>
-        
-        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
-        
-        {/* Single ad placement - after content, before author */}
-        {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
-          <div className="post-ad">
-            <AdSlot width={728} height={90} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" />
+        {post.image && (
+          <div className="post-hero-image">
+            <img src={post.image} alt={post.title} />
           </div>
         )}
+      </div>
+
+      {/* Two-column layout: TOC + Content */}
+      <div className="post-layout">
+        {/* Left: Table of Contents */}
+        <aside className="post-toc">
+          <div className="toc-content">
+            <div className="toc-title">On this page</div>
+            {post.headings && post.headings.length > 0 ? (
+              <TOC headings={post.headings} />
+            ) : (
+              <p className="muted" style={{fontSize:14}}>No sections</p>
+            )}
+          </div>
+        </aside>
+
+        {/* Main Article */}
+        <article className="post-main">
+          <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         
-        {/* Author Box */}
-        <AuthorBox />
-      </article>
-    </div>
+          {/* Single ad placement - after content, before author */}
+          {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
+            <div className="post-ad">
+              <AdSlot width={728} height={90} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" />
+            </div>
+          )}
+        
+          {/* Author Box */}
+          <AuthorBox />
+        </article>
+      </div>
+    </>
   );
 }
