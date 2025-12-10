@@ -13,6 +13,7 @@ export default async function sitemap() {
     '',
     'about',
     'blog',
+    'portfolio',
   ].map((p) => ({
     url: p ? `${siteUrl}/${p}` : siteUrl,
     lastModified: new Date(),

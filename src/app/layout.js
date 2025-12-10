@@ -25,9 +25,17 @@ const jetbrainsMono = JetBrains_Mono({
 const SITE_URL = process.env.SITE_URL || 'http://localhost:3000';
 
 export const metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(SITE_URL.replace(/\/+$/, '')),
   title: { default: 'DVDphobia | Developer & Builder', template: '%s | DVDphobia' },
   description: 'Clean, modern portfolio and blog. Developer, Writer, Builder.',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   openGraph: {
     title: 'DVDphobia | Developer & Builder',
     description: 'Clean, modern portfolio and blog. Developer, Writer, Builder.',
