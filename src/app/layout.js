@@ -1,7 +1,22 @@
 import './globals.css';
 import Script from 'next/script';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+});
 
 const SITE_URL = process.env.SITE_URL || 'http://localhost:3000';
 
@@ -29,16 +44,10 @@ export default function RootLayout({ children }) {
   const gscVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         {/* Hotjar / Contentsquare */}
         <script src="https://t.contentsquare.net/uxa/17d0ad56f69ae.js" async />
-
-        {/* TrustLogo loader */}
-        <Script id="trustlogo-loader" strategy="beforeInteractive">{`
-          var tlJsHost = (location.protocol === "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/";
-          document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
-        `}</Script>
 
         {/* Google Search Console */}
         {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
@@ -71,12 +80,6 @@ export default function RootLayout({ children }) {
         <main>{children}</main>
 
         <Footer />
-
-        {/* TrustLogo init */}
-        <Script id="trustlogo-init" strategy="afterInteractive">{`
-          TrustLogo("https://www.dvdphobia.dev/sectigo_trust_seal_sm_82x32.png", "CL1", "none");
-        `}</Script>
-        <a href="https://ssl.comodo.com/free-ssl-certificate.php" id="comodoTL" />
       </body>
     </html>
   );
