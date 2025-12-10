@@ -16,7 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; height: auto; }
+html { scroll-behavior: smooth; height: auto; overflow-x: hidden; }
 body {
   margin: 0;
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
@@ -28,6 +28,7 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -166,30 +167,35 @@ img { max-width: 100%; height: auto; }
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 150;
 }
 
 .nav-mobile-overlay.open {
   opacity: 1;
+  visibility: visible;
 }
 
 .nav-mobile {
   display: none;
   position: fixed;
   top: 0;
-  right: -280px;
+  right: 0;
   width: 280px;
   height: 100vh;
   background: var(--bg);
   padding: 80px 24px 24px;
-  transition: right 0.3s ease;
+  transform: translateX(100%);
+  transition: transform 0.3s ease, visibility 0.3s ease;
   z-index: 175;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
 }
 
 .nav-mobile.open {
-  right: 0;
+  transform: translateX(0);
+  visibility: visible;
 }
 
 .nav-mobile-link {
@@ -703,23 +709,27 @@ hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
   border-color: var(--fg);
 }
 
-/* Single ad after content */
+/* Single ad after content - clearly separated from navigation/content */
 .post-ad {
-  margin: 48px 0;
-  padding: 24px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  margin: 64px 0;
+  padding: 32px 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
   text-align: center;
 }
 
 .post-ad::before {
   content: 'Advertisement';
   display: block;
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--muted);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
 }
 
 .sticky { position: sticky; top: 100px; }

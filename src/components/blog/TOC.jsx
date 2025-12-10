@@ -19,16 +19,29 @@ export default function TOC({ headings = [] }) {
     const opts = { root: null, rootMargin: '0px 0px -60% 0px', threshold: [0, 1] };
     const cb = (entries) => {
       // Pick the first intersecting entry (closest to top)
-      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+      const visible = entries.filter(e => e.isIntersecting);
       if (visible.length) {
-        setActive(visible[0].target.id);
+        // Use intersection data instead of getBoundingClientRect to avoid forced reflow
+        const sorted = visible.sort((a, b) => {
+          return a.boundingClientRect.top - b.boundingClientRect.top;
+        });
+        setActive(sorted[0].target.id);
       } else {
         // Fallback: find the last heading above the viewport
-        const tops = headings.map(h => {
+        // Batch all getBoundingClientRect calls to minimize reflows
+        const rects = new Map();
+        headings.forEach(h => {
           const el = document.getElementById(h.id);
-            if (!el) return { id: h.id, top: Infinity };
-            return { id: h.id, top: el.getBoundingClientRect().top };
-        }).filter(o => o.top < 80).sort((a,b) => b.top - a.top);
+          if (el) {
+            rects.set(h.id, el.getBoundingClientRect().top);
+          }
+        });
+        
+        const tops = headings
+          .map(h => ({ id: h.id, top: rects.get(h.id) ?? Infinity }))
+          .filter(o => o.top < 80)
+          .sort((a, b) => b.top - a.top);
+        
         if (tops.length) setActive(tops[0].id);
       }
     };
@@ -47,10 +60,15 @@ export default function TOC({ headings = [] }) {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    // Smooth scroll with offset compensation (header height ~0 but keep margin)
-    const y = el.getBoundingClientRect().top + window.scrollY - 10; // slight offset
+    
+    // Use scrollIntoView with offset for better performance (avoids forced reflow)
     window.history.replaceState(null, '', `#${id}`);
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    
+    // Calculate offset once and scroll
+    requestAnimationFrame(() => {
+      const y = el.getBoundingClientRect().top + window.scrollY - 10;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
   };
 
   const hasH3 = headings.some(h => h.depth === 3);
