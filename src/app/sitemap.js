@@ -5,7 +5,8 @@ export const revalidate = 1800; // 30 minutes
 
 // Next.js (App Router) dynamic sitemap. Served at /sitemap.xml
 export default async function sitemap() {
-  const siteUrl = process.env.SITE_URL || 'http://localhost:3000';
+  // Remove trailing slash from SITE_URL to prevent double slashes
+  const siteUrl = (process.env.SITE_URL || 'http://localhost:3000').replace(/\/+$/, '');
 
   // Core static routes you want indexed
   const staticRoutes = [
@@ -13,7 +14,7 @@ export default async function sitemap() {
     'about',
     'blog',
   ].map((p) => ({
-    url: `${siteUrl}/${p}`.replace(/\/$/, ''),
+    url: p ? `${siteUrl}/${p}` : siteUrl,
     lastModified: new Date(),
   }));
 
@@ -27,7 +28,7 @@ export default async function sitemap() {
   }
 
   const postEntries = posts.map((p) => ({
-    url: `${siteUrl}/blog/${p.slug}`,
+    url: `${siteUrl}/blog/${p.slug.replace(/^\/+/, '')}`,
     lastModified: p.date ? new Date(p.date) : new Date(),
   }));
 
