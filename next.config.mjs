@@ -1,16 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Optimize for modern browsers - remove unnecessary polyfills
-  compiler: {
-    // Remove console logs in production
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-  // Target modern browsers to reduce bundle size
-  experimental: {
-    // Optimize CSS loading
-    optimizeCss: true,
-  },
+  // Remove console logs in production only (disabled for Turbopack compatibility)
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV === 'production',
+  // },
   images: {
     // You can allow external domains for project thumbnails if needed
     remotePatterns: [
