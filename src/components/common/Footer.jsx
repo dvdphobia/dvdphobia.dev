@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { AdSlot } from '@/components/ads/Ads';
 
 const socialLinks = [
   {
@@ -74,15 +73,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '32px 0' }}>
-          <AdSlot
-            width={468}
-            height={60}
-            adKey="e891c276e08147961d81937e1f30e53d"
-            label="Adsterra Banner"
-          />
         </div>
 
         <div className="footer-bottom">

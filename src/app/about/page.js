@@ -2,6 +2,21 @@ export const metadata = {
   title: 'About',
   description: 'Learn more about DVDphobia, a passionate programmer who loves C and system programming.',
   alternates: { canonical: '/about' },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'About | DVDphobia',
+    description: 'Learn more about DVDphobia, a passionate programmer who loves C and system programming.',
+    url: '/about',
+    type: 'profile',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'About | DVDphobia',
+    description: 'Learn more about DVDphobia, a passionate programmer who loves C and system programming.',
+  },
 };
 
 import dynamic from 'next/dynamic';

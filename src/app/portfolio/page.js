@@ -1,7 +1,22 @@
 export const metadata = {
   title: 'Portfolio',
-  description: 'Selected projects and case studies.',
+  description: 'Selected projects and case studies by DVDphobia.',
   alternates: { canonical: '/portfolio' },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Portfolio | DVDphobia',
+    description: 'Selected projects and case studies by DVDphobia.',
+    url: '/portfolio',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Portfolio | DVDphobia',
+    description: 'Selected projects and case studies by DVDphobia.',
+  },
 };
 
 // Set to true when you have real projects to show

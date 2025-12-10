@@ -6,8 +6,23 @@ export const revalidate = REVALIDATE_SECONDS;
 
 export const metadata = {
   title: 'Blog',
-  description: 'Articles, tutorials, and notes.',
+  description: 'Articles, tutorials, and notes on programming, systems, and technology.',
   alternates: { canonical: '/blog' },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Blog | DVDphobia',
+    description: 'Articles, tutorials, and notes on programming, systems, and technology.',
+    url: '/blog',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Blog | DVDphobia',
+    description: 'Articles, tutorials, and notes on programming, systems, and technology.',
+  },
 };
 
 export default async function BlogPage() {

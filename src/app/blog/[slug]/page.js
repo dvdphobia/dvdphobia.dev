@@ -6,7 +6,6 @@ import { getAllPosts, getPostBySlug } from '@/lib/posts';
 const TOC = dynamic(() => import('@/components/blog/TOC'), { ssr: false });
 const AuthorBox = dynamic(() => import('@/components/blog/AuthorBox'), { ssr: false });
 
-const AdSlot = dynamic(() => import('@/components/ads/Ads').then(mod => ({ default: mod.AdSlot })), { ssr: false });
 const AdSense = dynamic(() => import('@/components/ads/Ads').then(mod => ({ default: mod.AdSense })), { ssr: false });
 
 export async function generateStaticParams() {
@@ -117,9 +116,9 @@ export default async function PostPage({ params }) {
           <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         
           {/* Single ad placement - after content, before author */}
-          {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && (
-            <div className="post-ad">
-              <AdSlot width={728} height={90} adKey="a03385a7d3e5a8dfccc9c6a372b6f8db" />
+          {process.env.NEXT_PUBLIC_DISABLE_ADS !== '1' && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+            <div className="post-ad" role="complementary" aria-label="Advertisement">
+              <AdSense slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT || ''} format="auto" />
             </div>
           )}
         
