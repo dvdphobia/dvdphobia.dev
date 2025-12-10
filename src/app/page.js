@@ -46,7 +46,7 @@ export default function HomePage() {
                 <div style={{width: 12, height: 12, borderRadius: '50%', background: '#22c55e'}}></div>
               </div>
               <div style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "var(--font-jetbrains), monospace",
                 fontSize: 14,
                 color: '#22c55e',
                 lineHeight: 1.6,

@@ -58,6 +58,7 @@ export function AdSlot({
     const iframe = document.createElement('iframe');
     iframe.width = width;
     iframe.height = height;
+    iframe.title = 'Advertisement';
     iframe.style.border = 'none';
     iframe.style.overflow = 'hidden';
     iframe.style.display = 'block';
